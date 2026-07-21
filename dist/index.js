@@ -1,4 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("./design_patterns/singleton/singleTon");
+require("./design_patterns/observer/observer");
 //# sourceMappingURL=index.js.map

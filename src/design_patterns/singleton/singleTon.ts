@@ -5,7 +5,7 @@ when the function or class is called.
 Use Case: when you need exactly one instance of class to exist throughout your application.
 
 */
-
+console.log("SINGLETON----")
 class SingleTon {
 
 // A static property or method belongs to the class itself, not to an object(instance) of the class

@@ -25,9 +25,14 @@ class SingleTon {
 }
 const obj1 = SingleTon.getInstance();
 const obj2 = SingleTon.getInstance();
-// so here the obj1 and obj2 will share the same instance of the class
+// so here the obj1 and obj2 will share the same instance of the class, both are sharing the same copy of name
 obj1.setName("tester1");
 obj2.setName("tester2");
 console.log(obj1.name);
 console.log(obj2.name);
+/*
+output:
+tester2
+tester2
+*/
 //# sourceMappingURL=singleTon.js.map
