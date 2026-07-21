@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*
 Definition: In this there is only one object created for each interface (class or function) and the same object is returned every time
 when the function or class is called.
@@ -6,7 +7,7 @@ when the function or class is called.
 Use Case: when you need exactly one instance of class to exist throughout your application.
 
 */
-Object.defineProperty(exports, "__esModule", { value: true });
+console.log("SINGLETON----");
 class SingleTon {
     // A static property or method belongs to the class itself, not to an object(instance) of the class
     static instance;

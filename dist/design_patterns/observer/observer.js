@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*
  A subscription model in which an object subscribe to a host and the host notifies the object whenever an event occurs is
  known as observer pattern or pub/sub.
@@ -15,7 +16,7 @@ Observers:
 1) has a function that gets called every time a state changes
 
 */
-Object.defineProperty(exports, "__esModule", { value: true });
+console.log("OBSERVER-----");
 class Host {
     observers = [];
     subscribe(callback) {
