@@ -1,40 +1,38 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 // A circuit breaker is a design pattern that helps to prevent cascading failures.
 /*
     Imagine you are making an API call and the request keeps failing, rather than keep on bombarding the server,
     we can halt the request sending for a certain time. That is how a circuit breaker works.
 */
+Object.defineProperty(exports, "__esModule", { value: true });
 console.log("CIRCUIT BREAKER------");
+//Synchronous version , you can make it asynchronous
 function circuitBreaker(fn, failureCount, timeThreshold) {
     let failures = 0;
-    let timeSinceLastFailure = 0;
-    let isOpen = false;
+    let timeSinceLastFailure = Date.now();
+    let isClosed = false;
     return function (...args) {
-        if (isOpen) {
+        if (isClosed) {
             const diff = Date.now() - timeSinceLastFailure;
             if (diff > timeThreshold) {
-                console.log("Trying service again...");
-                isOpen = false;
+                isClosed = false;
             }
             else {
-                console.log("Service unavailable");
+                console.log("try again after some time");
                 return;
             }
         }
         try {
-            const response = fn(...args);
-            failures = 0; // reset on success
-            return response;
+            const resp = fn(...args);
+            failures = 0;
+            return resp;
         }
         catch (err) {
             failures++;
-            console.log("Error:", err);
             if (failures >= failureCount) {
-                isOpen = true;
-                timeSinceLastFailure = Date.now();
-                console.log("Circuit Opened");
+                isClosed = true;
             }
+            timeSinceLastFailure = Date.now();
         }
     };
 }
@@ -43,6 +41,7 @@ function testFunction() {
     return function () {
         count++;
         if (count < 4) {
+            console.log("api failed");
             throw new Error("failed");
         }
         return "hello";

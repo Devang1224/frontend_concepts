@@ -9,45 +9,40 @@ console.log("CIRCUIT BREAKER------");
 
 //Synchronous version , you can make it asynchronous
 function circuitBreaker(
-    fn: (...args: any[]) => any,
-    failureCount: number,
+    fn: (...args:any)=>void,
+    failureCount:number,
     timeThreshold: number
 ) {
-    let failures = 0;
-    let timeSinceLastFailure = 0;
-    let isOpen = false;
+     let failures = 0;
+     let timeSinceLastFailure = Date.now();
+     let isClosed = false;
 
-    return function (...args: any[]) {
+    return function(...args:any){
 
-        if (isOpen) {
+        if(isClosed){
             const diff = Date.now() - timeSinceLastFailure;
-
-            if (diff > timeThreshold) {
-                console.log("Trying service again...");
-                isOpen = false;
-            } else {
-                console.log("Service unavailable");
+            if(diff > timeThreshold){
+                isClosed = false;
+            }else{
+                console.log("try again after some time");
                 return;
             }
         }
-
-        try {
-            const response = fn(...args);
-
-            failures = 0; // reset on success
-            return response;
-
-        } catch (err) {
+        
+        try{
+            const resp = fn(...args);
+            failures = 0;
+            return resp;
+        }catch(err){
             failures++;
-            console.log("Error:", err);
-
-            if (failures >= failureCount) {
-                isOpen = true;
-                timeSinceLastFailure = Date.now();
-                console.log("Circuit Opened");
+            if(failures>=failureCount){
+                isClosed=true;
             }
+            timeSinceLastFailure = Date.now();
         }
-    };
+    }
+
+
 }
 
 function testFunction() {
@@ -57,6 +52,7 @@ function testFunction() {
         count++;
 
         if (count < 4) {
+            console.log("api failed")
             throw new Error("failed");
         }
 
