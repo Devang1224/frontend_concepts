@@ -22,6 +22,7 @@ Overusing them can drastically hamper the performance of the application, thus t
 
 */
 Object.defineProperty(exports, "__esModule", { value: true });
+console.log("____PROXY PATTERN____");
 const person = {
     name: "devang",
     age: 24,
@@ -39,7 +40,8 @@ const proxiedPerson = new Proxy(person, {
     set(obj, prop, value) {
         if (prop === "gender") {
             console.log("cannot update gender property");
-            return false;
+            // return false;  to emit an error for now passing truthy value
+            return true;
         }
         else {
             Reflect.set(obj, prop, value); // receiver can be used to pass custom this object
