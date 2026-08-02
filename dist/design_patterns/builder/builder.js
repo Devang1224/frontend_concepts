@@ -33,4 +33,24 @@ class Payment {
 }
 const p1 = new Payment();
 p1.addAmount(101).addAmount(100).pay();
+// we can also use it in normal objects like this 
+// const p1 = {
+//  currency: '₹',
+//  amount: 0,
+//  addAmount: function(val){
+//    this.amount += val;
+//    return this;
+//  },
+//  addCurrency: function(currency){
+//    this.currency = currency;
+//    return this;
+//  },
+//  pay: function(){
+//    console.log(`${this.currency} ${this.amount}`);
+//  }
+// };
+// p1.addAmount(100).addAmount(200).addAmount(200).pay();
+// // "₹ 500"
+// p1.addAmount(200).addCurrency('$').pay();
+// // "$ 700"
 //# sourceMappingURL=builder.js.map
