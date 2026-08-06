@@ -58,12 +58,9 @@ function* Iterator(iterable:any[]){
         yield iterable[current];
         current++;
     }
-    
 }
 
 
 const it = Iterator(arr);
 
 console.log(it.next());
-
-
